@@ -1,8 +1,6 @@
 # Node FFmpeg Streamer
 
-Web app that converts any youtube video into mp3 in realtime.
-
-This project is just a proof of concept.
+Web app that converts youtube playlists into mp3 in realtime.
 
 ## Install
 
@@ -16,13 +14,13 @@ To run the app just do the following:
 
     node app
 
-Then head to `localhost:3000/youtube/<youtuve_video_id>`, and you'll immediately start listening to the audio of the chosen video.
+Then head to `localhost:3000/youtube/<youtuve_playlist_id>`, and you'll immediately start listening to the audio of the chosen video.
 
 ### Example
 
-To start head-banging to Moonspell, just use the following local URL:
+To start playing a metallica playlist, just use the following local URL:
 
-    http://localhost:3000/youtube/I4Far7J-cb8
+    http://localhost:3000/youtube/PLF13B315C5E18DE6D
 
 Now enjoy!
 
