@@ -26,9 +26,7 @@ app.configure('development', function(){
   app.use(express.errorHandler());
 });
 
-app.get('/', routes.index);
-app.get('/youtube/:video_id', routes.youtube_mp3);
-app.get('/sapovideos/:video_id', routes.sapovideos_mp3);
+app.get('/youtube/:playlist', routes.youtube);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log("Express server listening on port " + app.get('port'));
