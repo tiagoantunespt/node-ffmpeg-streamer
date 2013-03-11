@@ -5,28 +5,22 @@ var spawn = require('child_process').spawn,
     path = require('path'),
     youtube = require('youtube-feeds');
 
-var counter, total;
-
 exports.youtube = function(req, response){
     response.contentType = 'audio/mpeg3';
-    counter = 0;
     youtube.feeds.playlist(req.params.playlist, function( err, data ) {
-        if( err instanceof Error ) {
-            console.log( err )
-        } else {
+        if(!err) {
             urls = [];
             for(x in data.items){
                 urls.push('http://www.youtube.com/watch?v='+data.items[x].video.id);
             }
-            total = urls.length
             console.log(urls);
-            encode(0);
+            encode(0, urls);
         }
     });
 
-    function encode(item){
+    function encode(item, urls){
         var youtube_dl_cmd = 'youtube-dl --simulate --get-url ';
-        youtube_dl_cmd += urls[counter];
+        youtube_dl_cmd += urls[item];
         console.log('next url: '+urls[item]);
 
         var youtube_dl_child = exec(youtube_dl_cmd, function(err, stdout, stderr){
@@ -57,9 +51,9 @@ exports.youtube = function(req, response){
             ffmpeg.stdout.on('end', function (code) {
 
                 //playlist size control
-                counter = item+1;
-                if(counter < total){
-                    encode(counter);
+                var next = item+1;
+                if(next < urls.length){
+                    encode(next, urls);
                 }else{
                     console.log('stream finished');
                 }
